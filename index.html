@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scenecraft - Imagens Profissionais com IA</title>
+    <style>
+        :root {
+            --primary: #35821A;
+            --primary-dark: #2a6815;
+            --secondary: #BD8926;
+            --secondary-dark: #9a6f1e;
+            --light: #f8faf7;
+            --dark: #1a2a15;
+            --gray: #6b7280;
+            --border-radius: 12px;
+            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f8faf7 0%, #e8f0e5 100%);
+            color: var(--dark);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .logo span {
+            color: var(--secondary);
+        }
+        
+        nav a {
+            margin-left: 20px;
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        nav a:hover {
+            color: var(--primary);
+        }
+        
+        .hero {
+            text-align: center;
+            padding: 60px 0;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--dark);
+            line-height: 1.2;
+        }
+        
+        .highlight {
+            color: var(--primary);
+        }
+        
+        .tagline {
+            font-size: 1.4rem;
+            color: var(--gray);
+            margin-bottom: 30px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: var(--border-radius);
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-block;
+            text-decoration: none;
+        }
+        
+        .btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(53, 130, 26, 0.2);
+        }
+        
+        .btn-secondary {
+            background: var(--secondary);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--secondary-dark);
+            box-shadow: 0 10px 20px rgba(189, 137, 38, 0.2);
+        }
+        
+        .btn-large {
+            padding: 16px 40px;
+            font-size: 1.3rem;
+        }
+        
+        .demo-section {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+            margin: 60px 0;
+            flex-wrap: wrap;
+        }
+        
+        .demo-text {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .demo-visual {
+            flex: 1;
+            min-width: 300px;
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 20px;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+        
+        .image-comparison {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .image-box {
+            flex: 1;
+            height: 200px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .before {
+            background: linear-gradient(135deg, #6b7280, #9ca3af);
+        }
+        
+        .after {
+            background: linear-gradient(135deg, var(--primary), #4ca030);
+        }
+        
+        .how-it-works {
+            background: white;
+            padding: 60px 40px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin: 60px 0;
+        }
+        
+        .steps {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .step {
+            flex: 1;
+            min-width: 200px;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        .step-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+        
+        .testimonial {
+            text-align: center;
+            padding: 40px;
+            background: rgba(53, 130, 26, 0.05);
+            border-radius: var(--border-radius);
+            margin: 40px 0;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+        
+        .testimonial-author {
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        .cta-section {
+            text-align: center;
+            padding: 60px 20px;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin: 60px 0;
+        }
+        
+        .form-container {
+            max-width: 500px;
+            margin: 30px auto 0;
+            background: #f8faf7;
+            padding: 30px;
+            border-radius: var(--border-radius);
+            border: 1px solid #e5e7eb;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        
+        textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        
+        .file-upload {
+            border: 2px dashed #d1d5db;
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .file-upload:hover {
+            border-color: var(--primary);
+            background: rgba(53, 130, 26, 0.05);
+        }
+        
+        .file-upload-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: var(--gray);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            color: var(--gray);
+            border-top: 1px solid #e5e7eb;
+            margin-top: 40px;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .tagline {
+                font-size: 1.2rem;
+            }
+            
+            .demo-section, .steps {
+                flex-direction: column;
+            }
+            
+            nav {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">Scene<span>craft</span></div>
+            <nav>
+                <a href="#como-funciona">Como Funciona</a>
+                <a href="#testar">Testar Grátis</a>
+                <a href="#contato">Contato</a>
+            </nav>
+        </header>
+        
+        <section class="hero">
+            <h1>Transforme <span class="highlight">fotos comuns</span> em imagens <span class="highlight">profissionais</span></h1>
+            <p class="tagline">Sem estúdio caro, sem equipamentos complexos. Nossa IA edita suas imagens baseado em suas instruções.</p>
+            <a href="#testar" class="btn btn-large">Experimente Grátis</a>
+        </section>
+        
+        <section class="demo-section">
+            <div class="demo-text">
+                <h2>De uma simples foto para um resultado profissional</h2>
+                <p>Nosso MVP está funcionando com tecnologia de IA avançada. Envie sua foto e descreva como quer que ela fique - nós fazemos a mágica acontecer!</p>
+                
+                <div class="testimonial">
+                    <p class="testimonial-text">"Enviei uma foto do meu produto com fundo bagunçado e recebi uma imagem profissional com fundo branco perfeito. Incrível!"</p>
+                    <p class="testimonial-author">- Carla M., Loja Online</p>
+                </div>
+            </div>
+            
+            <div class="demo-visual">
+                <h3>Antes e Depois</h3>
+                <div class="image-comparison">
+                    <div class="image-box before">
+                        Foto Original
+                    </div>
+                    <div class="image-box after">
+                        Com IA
+                    </div>
+                </div>
+                <p style="margin-top: 15px; font-size: 0.9rem; color: var(--gray);">Exemplo de transformação com IA generativa</p>
+            </div>
+        </section>
+        
+        <section class="how-it-works" id="como-funciona">
+            <h2 style="text-align: center; margin-bottom: 10px;">Como Funciona</h2>
+            <p style="text-align: center; margin-bottom: 30px; color: var(--gray);">Processo simples para resultados incríveis</p>
+            
+            <div class="steps">
+                <div class="step">
+                    <div class="step-icon">📸</div>
+                    <div class="step-number">1</div>
+                    <h3>Envie sua Foto</h3>
+                    <p>Faça upload de uma imagem do seu produto</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-icon">💬</div>
+                    <div class="step-number">2</div>
+                    <h3>Descreva sua Visão</h3>
+                    <p>Diga como quer que a imagem fique</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-icon">🤖</div>
+                    <div class="step-number">3</div>
+                    <h3>IA Processa</h3>
+                    <p>Nossa inteligência artificial edita a imagem</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-icon">✨</div>
+                    <div class="step-number">4</div>
+                    <h3>Receba o Resultado</h3>
+                    <p>Baixe sua imagem editada em alta qualidade</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="cta-section" id="testar">
+            <h2>Pronto para Transformar suas Imagens?</h2>
+            <p style="margin: 20px 0; font-size: 1.2rem;">Experimente nosso MVP gratuitamente</p>
+            
+            <div class="form-container">
+                <div class="form-group">
+                    <label for="email">Seu Melhor E-mail</label>
+                    <input type="email" id="email" placeholder="seu@email.com">
+                </div>
+                
+                <div class="form-group">
+                    <label for="photo">Envie sua Foto</label>
+                    <div class="file-upload" id="fileUpload">
+                        <div class="file-upload-icon">📁</div>
+                        <p>Clique para selecionar uma imagem</p>
+                        <input type="file" id="photo" accept="image/*" style="display: none;">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="request">Como você quer sua imagem?</label>
+                    <textarea id="request" placeholder="Ex: Fundo branco profissional, iluminação de estúdio, produto centralizado..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="use-case">Principal uso da imagem:</label>
+                    <select id="use-case">
+                        <option value="">Selecione...</option>
+                        <option value="ecommerce">E-commerce/Loja Online</option>
+                        <option value="social">Redes Sociais</option>
+                        <option value="portfolio">Portfólio</option>
+                        <option value="other">Outro</option>
+                    </select>
+                </div>
+                
+                <button class="btn btn-secondary" style="width: 100%;">Enviar para Processamento com IA</button>
+                
+                <p style="margin-top: 15px; font-size: 0.9rem; color: var(--gray);">Processaremos manualmente e enviaremos em até 24h. Vagas limitadas.</p>
+            </div>
+        </section>
+        
+        <footer>
+            <p>Scene<span style="color: var(--primary);">craft</span> - MVP em Validação</p>
+            <p style="margin-top: 10px; font-size: 0.9rem;">Tecnologia IA Generativa | Contato: contato@scenecraft.com</p>
+        </footer>
+    </div>
+
+    <script>
+        // File upload interaction
+        document.getElementById('fileUpload').addEventListener('click', function() {
+            document.getElementById('photo').click();
+        });
+        
+        document.getElementById('photo').addEventListener('change', function(e) {
+            if (e.target.files.length > 0) {
+                document.getElementById('fileUpload').innerHTML = `
+                    <div style="color: var(--primary); font-size: 2rem;">✅</div>
+                    <p>Imagem selecionada: ${e.target.files[0].name}</p>
+                `;
+            }
+        });
+        
+        // Form submission
+        document.querySelector('.btn-secondary').addEventListener('click', function() {
+            const email = document.getElementById('email').value;
+            const photo = document.getElementById('photo').files[0];
+            const request = document.getElementById('request').value;
+            
+            if (!email || !photo || !request) {
+                alert('Por favor, preencha todos os campos obrigatórios');
+                return;
+            }
+            
+            this.textContent = 'Processando...';
+            this.disabled = true;
+            
+            // Simulate processing delay
+            setTimeout(() => {
+                alert('Obrigado! Recebemos sua solicitação. Processaremos manualmente e enviaremos o resultado em até 24h por e-mail.');
+                this.textContent = 'Enviado com Sucesso!';
+            }, 1500);
+        });
+    </script>
+</body>
+</html>
