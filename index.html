@@ -453,37 +453,63 @@
     <script>
 
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('=== DEBUG SCENECRAFT ===');
+    console.log('Scenecraft - JavaScript carregado');
     
-    // Verificar se elementos existem
-    const email = document.getElementById('email');
-    const photo = document.getElementById('photo');
-    const request = document.getElementById('request');
-    const btn = document.querySelector('.btn-secondary');
+    // File upload
+    const fileUpload = document.getElementById('fileUpload');
+    const photoInput = document.getElementById('photo');
     
-    console.log('Email element:', email);
-    console.log('Photo element:', photo);
-    console.log('Request element:', request);
-    console.log('Button element:', btn);
+    if (fileUpload && photoInput) {
+        fileUpload.addEventListener('click', function() {
+            photoInput.click();
+        });
+        
+        photoInput.addEventListener('change', function(e) {
+            if (e.target.files.length > 0) {
+                fileUpload.innerHTML = `
+                    <div style="color: #35821A; font-size: 2rem;">✅</div>
+                    <p>Imagem selecionada: ${e.target.files[0].name}</p>
+                `;
+            }
+        });
+    } else {
+        console.log('Elementos de upload não encontrados');
+    }
     
-    // Mostrar todos os elementos com ID para debug
-    console.log('Todos os elementos com ID:');
-    document.querySelectorAll('[id]').forEach(el => {
-        console.log('ID:', el.id, 'Element:', el);
-    });
-    
-    if (btn) {
-        btn.addEventListener('click', function() {
-            console.log('=== CLICK DEBUG ===');
-            console.log('Email value:', email?.value);
-            console.log('Photo files:', photo?.files);
-            console.log('Request value:', request?.value);
+    // Form submission - VERSÃO CORRIGIDA
+    const submitBtn = document.querySelector('.btn-secondary');
+    if (submitBtn) {
+        submitBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            console.log('=== ENVIO INICIADO ===');
             
-            // Verificação simples
-            if (email?.value && photo?.files.length > 0 && request?.value) {
-                alert('✅ Tudo preenchido! Formulário funcionando!');
+            // VERIFICAR TODOS OS ELEMENTOS POSSÍVEIS
+            const email1 = document.getElementById('email');
+            const email2 = document.querySelector('input[type="email"]');
+            const photo1 = document.getElementById('photo');
+            const photo2 = document.querySelector('input[type="file"]');
+            const request1 = document.getElementById('request');
+            const request2 = document.querySelector('textarea');
+            
+            console.log('Email elements:', email1, email2);
+            console.log('Photo elements:', photo1, photo2);
+            console.log('Request elements:', request1, request2);
+            
+            // Usar os elementos que existirem
+            const email = (email1 || email2)?.value;
+            const photo = (photo1 || photo2)?.files[0];
+            const request = (request1 || request2)?.value;
+            
+            console.log('Email value:', email);
+            console.log('Photo file:', photo);
+            console.log('Photo files array:', (photo1 || photo2)?.files);
+            console.log('Request value:', request);
+            
+            if (email && photo && request) {
+                alert('✅ TUDO CERTO! Foto: ' + photo.name);
+                // Aqui vai o código do Formspree depois
             } else {
-                alert('❌ Problema encontrado. Verifique o console (F12)');
+                alert('❌ Problema: Email: ' + email + ', Foto: ' + (photo ? photo.name : 'NÃO ENCONTRADA') + ', Texto: ' + request);
             }
         });
     }
