@@ -452,79 +452,42 @@
     </div>
     <script>
 
-// Aguardar o carregamento completo da página
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('Página carregada - JavaScript ativo');
+    console.log('=== DEBUG SCENECRAFT ===');
     
-    // File upload
-    const fileUpload = document.getElementById('fileUpload');
-    const photoInput = document.getElementById('photo');
+    // Verificar se elementos existem
+    const email = document.getElementById('email');
+    const photo = document.getElementById('photo');
+    const request = document.getElementById('request');
+    const btn = document.querySelector('.btn-secondary');
     
-    if (fileUpload && photoInput) {
-        fileUpload.addEventListener('click', function() {
-            console.log('Abrindo seletor de arquivos');
-            photoInput.click();
-        });
-        
-        photoInput.addEventListener('change', function(e) {
-            if (e.target.files.length > 0) {
-                fileUpload.innerHTML = `
-                    <div style="color: #35821A; font-size: 2rem;">✅</div>
-                    <p>Imagem selecionada: ${e.target.files[0].name}</p>
-                `;
+    console.log('Email element:', email);
+    console.log('Photo element:', photo);
+    console.log('Request element:', request);
+    console.log('Button element:', btn);
+    
+    // Mostrar todos os elementos com ID para debug
+    console.log('Todos os elementos com ID:');
+    document.querySelectorAll('[id]').forEach(el => {
+        console.log('ID:', el.id, 'Element:', el);
+    });
+    
+    if (btn) {
+        btn.addEventListener('click', function() {
+            console.log('=== CLICK DEBUG ===');
+            console.log('Email value:', email?.value);
+            console.log('Photo files:', photo?.files);
+            console.log('Request value:', request?.value);
+            
+            // Verificação simples
+            if (email?.value && photo?.files.length > 0 && request?.value) {
+                alert('✅ Tudo preenchido! Formulário funcionando!');
+            } else {
+                alert('❌ Problema encontrado. Verifique o console (F12)');
             }
         });
-    }
-    
-    // Form submission - VERSÃO SIMPLES PARA TESTE
-    const submitBtn = document.querySelector('.btn-secondary');
-    if (submitBtn) {
-        submitBtn.addEventListener('click', function(e) {
-            e.preventDefault(); // Impedir comportamento padrão
-            console.log('Botão de enviar clicado!');
-            
-            const email = document.getElementById('email')?.value;
-            const photo = document.getElementById('photo')?.files[0];
-            const request = document.getElementById('request')?.value;
-            
-            console.log('Email:', email);
-            console.log('Foto:', photo);
-            console.log('Request:', request);
-            
-            if (!email || !photo || !request) {
-                alert('❌ Por favor, preencha todos os campos obrigatórios');
-                return;
-            }
-            
-            // Feedback visual
-            this.textContent = 'Enviando...';
-            this.disabled = true;
-            
-            // Simular envio
-            setTimeout(() => {
-                alert('🎉 FORMULÁRIO FUNCIONANDO! Enviaremos o resultado em 24h.');
-                this.textContent = 'Enviar para Processamento com IA';
-                this.disabled = false;
-            }, 1000);
-        });
-    } else {
-        console.error('Botão não encontrado!');
     }
 });
-
-// Fallback - caso DOMContentLoaded não funcione
-setTimeout(function() {
-    if (!document.querySelector('.btn-secondary')) {
-        console.log('Tentando fallback...');
-        // Re-try após 1 segundo
-        const btn = document.querySelector('.btn-secondary');
-        if (btn) {
-            btn.addEventListener('click', function() {
-                alert('Botão clicado via fallback!');
-            });
-        }
-    }
-}, 1000);
         </script>
 </body>
 </html>
