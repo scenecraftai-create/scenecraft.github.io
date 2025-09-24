@@ -452,79 +452,79 @@
     </div>
     <script>
 
- // File upload interaction
-document.getElementById('fileUpload').addEventListener('click', function() {
-    document.getElementById('photo').click();
-});
-
-document.getElementById('photo').addEventListener('change', function(e) {
-    if (e.target.files.length > 0) {
-        document.getElementById('fileUpload').innerHTML = `
-            <div style="color: #35821A; font-size: 2rem;">✅</div>
-            <p>Imagem selecionada: ${e.target.files[0].name}</p>
-        `;
-    }
-});
-
-// Form submission - AGORA ENVIA PARA FORMSPREE
-document.querySelector('.btn-secondary').addEventListener('click', async function() {
-    const email = document.getElementById('email').value;
-    const photo = document.getElementById('photo').files[0];
-    const request = document.getElementById('request').value;
-    const useCase = document.getElementById('use-case').value;
+// Aguardar o carregamento completo da página
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Página carregada - JavaScript ativo');
     
-    if (!email || !photo || !request) {
-        alert('Por favor, preencha todos os campos obrigatórios');
-        return;
-    }
+    // File upload
+    const fileUpload = document.getElementById('fileUpload');
+    const photoInput = document.getElementById('photo');
     
-    // Mostrar loading
-    const originalText = this.textContent;
-    this.textContent = 'Enviando...';
-    this.disabled = true;
-    
-    try {
-        // Criar FormData para enviar arquivo
-        const formData = new FormData();
-        formData.append('email', email);
-        formData.append('request', request);
-        formData.append('useCase', useCase);
-        formData.append('photo', photo);
-        formData.append('_subject', 'Nova solicitação Scenecraft');
-        
-        // Enviar para Formspree
-        const response = await fetch('https://formspree.io/f/xnngqoor', {
-            method: 'POST',
-            body: formData,
-            headers: {
-                'Accept': 'application/json'
-            }
+    if (fileUpload && photoInput) {
+        fileUpload.addEventListener('click', function() {
+            console.log('Abrindo seletor de arquivos');
+            photoInput.click();
         });
         
-        if (response.ok) {
-            alert('✅ Obrigado! Recebemos sua solicitação. Processaremos manualmente e enviaremos o resultado em até 24h por e-mail.');
-            // Limpar formulário
-            document.getElementById('email').value = '';
-            document.getElementById('request').value = '';
-            document.getElementById('use-case').value = '';
-            document.getElementById('fileUpload').innerHTML = `
-                <div class="file-upload-icon">📁</div>
-                <p>Clique para selecionar uma imagem</p>
-            `;
-        } else {
-            throw new Error('Erro no envio');
-        }
-    } catch (error) {
-        alert('❌ Erro ao enviar. Por favor, envie diretamente para: contato@scenecraft.com');
-    } finally {
-        this.textContent = originalText;
-        this.disabled = false;
+        photoInput.addEventListener('change', function(e) {
+            if (e.target.files.length > 0) {
+                fileUpload.innerHTML = `
+                    <div style="color: #35821A; font-size: 2rem;">✅</div>
+                    <p>Imagem selecionada: ${e.target.files[0].name}</p>
+                `;
+            }
+        });
+    }
+    
+    // Form submission - VERSÃO SIMPLES PARA TESTE
+    const submitBtn = document.querySelector('.btn-secondary');
+    if (submitBtn) {
+        submitBtn.addEventListener('click', function(e) {
+            e.preventDefault(); // Impedir comportamento padrão
+            console.log('Botão de enviar clicado!');
+            
+            const email = document.getElementById('email')?.value;
+            const photo = document.getElementById('photo')?.files[0];
+            const request = document.getElementById('request')?.value;
+            
+            console.log('Email:', email);
+            console.log('Foto:', photo);
+            console.log('Request:', request);
+            
+            if (!email || !photo || !request) {
+                alert('❌ Por favor, preencha todos os campos obrigatórios');
+                return;
+            }
+            
+            // Feedback visual
+            this.textContent = 'Enviando...';
+            this.disabled = true;
+            
+            // Simular envio
+            setTimeout(() => {
+                alert('🎉 FORMULÁRIO FUNCIONANDO! Enviaremos o resultado em 24h.');
+                this.textContent = 'Enviar para Processamento com IA';
+                this.disabled = false;
+            }, 1000);
+        });
+    } else {
+        console.error('Botão não encontrado!');
     }
 });
-        
 
-// Adicionar ID ao formulário para facilitar
-document.querySelector('.form-container').id = 'scenecraft-form';
+// Fallback - caso DOMContentLoaded não funcione
+setTimeout(function() {
+    if (!document.querySelector('.btn-secondary')) {
+        console.log('Tentando fallback...');
+        // Re-try após 1 segundo
+        const btn = document.querySelector('.btn-secondary');
+        if (btn) {
+            btn.addEventListener('click', function() {
+                alert('Botão clicado via fallback!');
+            });
+        }
+    }
+}, 1000);
         </script>
 </body>
 </html>
