@@ -454,53 +454,65 @@
 document.addEventListener('DOMContentLoaded', function() {
     console.log('Scenecraft - JavaScript carregado');
     
-    // FILE UPLOAD - usando o elemento CORRETO
-    const fileUploadDiv = document.getElementById('fileUpload');
-    const photoInput = document.querySelector('input[type="file"]'); // MUDANÇA AQUI!
+    // FILE UPLOAD - Versão compatível
+    var fileUploadDiv = document.getElementById('fileUpload');
     
-    if (fileUploadDiv && photoInput) {
-        fileUploadDiv.addEventListener('click', function() {
-            console.log('Clicou no upload');
-            photoInput.click();
-        });
+    if (fileUploadDiv) {
+        // Encontrar o input de arquivo
+        var photoInput = document.querySelector('input[type="file"]');
         
-        photoInput.addEventListener('change', function(e) {
-            console.log('Arquivo selecionado:', e.target.files[0]);
-            if (e.target.files.length > 0) {
-                fileUploadDiv.innerHTML = `
-                    <div style="color: #35821A; font-size: 2rem;">✅</div>
-                    <p>Imagem selecionada: ${e.target.files[0].name}</p>
-                `;
+        // Evento de click na área de upload
+        fileUploadDiv.addEventListener('click', function(e) {
+            console.log('Clicou no fileUploadDiv');
+            if (photoInput) {
+                photoInput.click();
             }
         });
+        
+        // Quando arquivo é selecionado
+        if (photoInput) {
+            photoInput.addEventListener('change', function(e) {
+                console.log('Arquivo selecionado:', e.target.files[0]);
+                if (e.target.files.length > 0) {
+                    fileUploadDiv.innerHTML = 
+                        '<div style="color: #35821A; font-size: 2rem;">✅</div>' +
+                        '<p>Imagem selecionada: ' + e.target.files[0].name + '</p>';
+                }
+            });
+        }
+        
+        // Garantir que a área de upload é clicável
+        fileUploadDiv.style.cursor = 'pointer';
     }
     
-    // BOTÃO ENVIAR - usando querySelector CORRETO
-    const submitBtn = document.querySelector('.btn-secondary');
+    // BOTÃO ENVIAR - Versão compatível
+    var submitBtn = document.querySelector('.btn-secondary');
     if (submitBtn) {
         submitBtn.addEventListener('click', function(e) {
             e.preventDefault();
             console.log('=== TENTANDO ENVIAR ===');
             
-            // USANDO querySelector em vez de getElementById
-            const email = document.querySelector('input[type="email"]')?.value;
-            const photo = document.querySelector('input[type="file"]')?.files[0]; // MUDANÇA CRÍTICA!
-            const request = document.querySelector('textarea')?.value;
+            // Usar verificação tradicional em vez de optional chaining
+            var emailInput = document.querySelector('input[type="email"]');
+            var photoInput = document.querySelector('input[type="file"]');
+            var textarea = document.querySelector('textarea');
+            
+            var email = emailInput ? emailInput.value : '';
+            var photo = photoInput && photoInput.files.length > 0 ? photoInput.files[0] : null;
+            var request = textarea ? textarea.value : '';
             
             console.log('Email:', email);
             console.log('Foto:', photo);
             console.log('Pedido:', request);
             
-            // Verificação
             if (email && photo && request) {
-                alert('✅ FORMULÁRIO FUNCIONANDO!\nFoto: ' + photo.name + '\nEmail: ' + email);
-                
-                // Código do Formspree viria aqui depois
+                alert('✅ FORMULÁRIO FUNCIONANDO! Foto: ' + photo.name);
             } else {
-                alert('❌ Faltando: ' + 
-                      (!email ? 'Email ' : '') + 
-                      (!photo ? 'Foto ' : '') + 
-                      (!request ? 'Descrição' : ''));
+                var mensagem = '❌ Faltando: ';
+                if (!email) mensagem += 'Email ';
+                if (!photo) mensagem += 'Foto ';
+                if (!request) mensagem += 'Descrição';
+                alert(mensagem);
             }
         });
     }
