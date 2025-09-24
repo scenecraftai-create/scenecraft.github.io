@@ -456,63 +456,63 @@
 document.addEventListener('DOMContentLoaded', function() {
     console.log('Scenecraft - JavaScript carregado');
     
-    // FILE UPLOAD - Versão compatível
+    // FILE UPLOAD
     var fileUploadDiv = document.getElementById('fileUpload');
+    var photoInput = document.getElementById('photo');
     
-    if (fileUploadDiv) {
-        // Encontrar o input de arquivo
-        var photoInput = document.querySelector('input[type="file"]');
+    if (fileUploadDiv && photoInput) {
+        fileUploadDiv.addEventListener('click', function() {
+            photoInput.click();
+        });
         
-        // Evento de click na área de upload
-        fileUploadDiv.addEventListener('click', function(e) {
-            console.log('Clicou no fileUploadDiv');
-            if (photoInput) {
-                photoInput.click();
+        photoInput.addEventListener('change', function(e) {
+            // VERIFICAÇÃO CORRETA se há arquivos
+            if (e.target.files && e.target.files.length > 0) {
+                fileUploadDiv.innerHTML = 
+                    '<div style="color: #35821A; font-size: 2rem;">✅</div>' +
+                    '<p>Imagem selecionada: ' + e.target.files[0].name + '</p>';
             }
         });
         
-        // Quando arquivo é selecionado
-        if (photoInput) {
-            photoInput.addEventListener('change', function(e) {
-                console.log('Arquivo selecionado:', e.target.files[0]);
-                if (e.target.files.length > 0) {
-                    fileUploadDiv.innerHTML = 
-                        '<div style="color: #35821A; font-size: 2rem;">✅</div>' +
-                        '<p>Imagem selecionada: ' + e.target.files[0].name + '</p>';
-                }
-            });
-        }
-        
-        // Garantir que a área de upload é clicável
         fileUploadDiv.style.cursor = 'pointer';
     }
     
-    // BOTÃO ENVIAR - Versão compatível
+    // BOTÃO ENVIAR - VERIFICAÇÃO CORRIGIDA
     var submitBtn = document.querySelector('.btn-secondary');
     if (submitBtn) {
         submitBtn.addEventListener('click', function(e) {
             e.preventDefault();
             console.log('=== TENTANDO ENVIAR ===');
             
-            // Usar verificação tradicional em vez de optional chaining
             var emailInput = document.querySelector('input[type="email"]');
-            var photoInput = document.querySelector('input[type="file"]');
+            var photoInput = document.getElementById('photo');
             var textarea = document.querySelector('textarea');
             
             var email = emailInput ? emailInput.value : '';
-            var photo = photoInput && photoInput.files.length > 0 ? photoInput.files[0] : null;
+            
+            // VERIFICAÇÃO CORRETA DO ARQUIVO
+            var photo = null;
+            if (photoInput && photoInput.files && photoInput.files.length > 0) {
+                photo = photoInput.files[0];
+            }
+            
             var request = textarea ? textarea.value : '';
             
             console.log('Email:', email);
             console.log('Foto:', photo);
             console.log('Pedido:', request);
             
-            if (email && photo && request) {
+            // VERIFICAÇÃO CORRETA
+            if (email && photo !== null && request) {
                 alert('✅ FORMULÁRIO FUNCIONANDO! Foto: ' + photo.name);
+                
+                // AGORA ENVIA PARA FORMSPREE
+                document.getElementById('scenecraft-form').submit();
+                
             } else {
                 var mensagem = '❌ Faltando: ';
                 if (!email) mensagem += 'Email ';
-                if (!photo) mensagem += 'Foto ';
+                if (photo === null) mensagem += 'Foto ';
                 if (!request) mensagem += 'Descrição';
                 alert(mensagem);
             }
