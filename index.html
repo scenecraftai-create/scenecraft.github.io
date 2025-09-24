@@ -402,54 +402,50 @@
                     <p>Baixe sua imagem editada em alta qualidade</p>
                 </div>
             </div>
-        </section>
+     <section class="cta-section" id="testar">
+    <h2>Pronto para Transformar suas Imagens?</h2>
+    <p style="margin: 20px 0; font-size: 1.2rem;">Experimente nosso MVP gratuitamente</p>
+    
+    <form 
+        action="https://formspree.io/f/xnngqoor" 
+        method="POST" 
+        enctype="multipart/form-data"
+        class="form-container"
+        id="scenecraft-form"
+    >
+        <div class="form-group">
+            <label for="email">Seu Melhor E-mail</label>
+            <input type="email" id="email" name="email" placeholder="seu@email.com" required>
+        </div>
         
-        <section class="cta-section" id="testar">
-            <h2>Pronto para Transformar suas Imagens?</h2>
-            <p style="margin: 20px 0; font-size: 1.2rem;">Experimente nosso MVP gratuitamente</p>
-            
-            <form 
-    action="https://formspree.io/f/xnngqoor" 
-    method="POST" 
-    enctype="multipart/form-data"
-    class="form-container"
-    id="scenecraft-form"
->
-                <div class="form-group">
-                    <label for="email">Seu Melhor E-mail</label>
-                    <input type="email" id="email" placeholder="seu@email.com">
-                </div>
-                
-                <div class="form-group">
-                    <label for="photo">Envie sua Foto</label>
-                    <div class="file-upload" id="fileUpload">
-                        <div class="file-upload-icon">📁</div>
-                        <p>Clique para selecionar uma imagem</p>
-                        <input type="file" id="photo" accept="image/*" style="display: none;">
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="request">Como você quer sua imagem?</label>
-                    <textarea id="request" placeholder="Ex: Fundo branco profissional, iluminação de estúdio, produto centralizado..."></textarea>
-                </div>
-                
-                <div class="form-group">
-                    <label for="use-case">Principal uso da imagem:</label>
-                    <select id="use-case">
-                        <option value="">Selecione...</option>
-                        <option value="ecommerce">E-commerce/Loja Online</option>
-                        <option value="social">Redes Sociais</option>
-                        <option value="portfolio">Portfólio</option>
-                        <option value="other">Outro</option>
-                    </select>
-                </div>
-                
-                <button class="btn btn-secondary" style="width: 100%;">Enviar para Processamento com IA</button>
-                
-                <p style="margin-top: 15px; font-size: 0.9rem; color: var(--gray);">Processaremos manualmente e enviaremos em até 24h. Vagas limitadas.</p>
+        <div class="form-group">
+            <label for="photo">Envie sua Foto</label>
+            <div class="file-upload" id="fileUpload">
+                <div class="file-upload-icon">📁</div>
+                <p>Clique para selecionar uma imagem</p>
+                <input type="file" id="photo" name="upload" accept="image/*" style="display: none;" required>
             </div>
-        </section>
+        </div>
+        
+        <div class="form-group">
+            <label for="request">Como você quer sua imagem?</label>
+            <textarea id="request" name="request" placeholder="Ex: Fundo branco profissional..." required></textarea>
+        </div>
+        
+        <div class="form-group">
+            <label for="use-case">Principal uso da imagem:</label>
+            <select id="use-case" name="use_case">
+                <option value="">Selecione...</option>
+                <option value="ecommerce">E-commerce/Loja Online</option>
+                <option value="social">Redes Sociais</option>
+                <option value="portfolio">Portfólio</option>
+                <option value="other">Outro</option>
+            </select>
+        </div>
+        
+        <button type="submit" class="btn btn-secondary" style="width: 100%;">Enviar para Processamento com IA</button>
+    </form>  
+</section>
         
         <footer>
             <p>Scene<span style="color: var(--primary);">craft</span> - MVP em Validação</p>
