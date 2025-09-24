@@ -452,56 +452,42 @@
     </div>
     <script>
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('Scenecraft - JavaScript carregado');
+    console.log('=== INVESTIGAÇÃO DOS ELEMENTOS ===');
     
-    // FILE UPLOAD FUNCIONANDO
-    const fileUploadDiv = document.getElementById('fileUpload');
-    const photoInput = document.getElementById('photo');
+    // Mostrar TODOS os elementos com ID
+    console.log('Todos os elementos com ID na página:');
+    const allElementsWithId = document.querySelectorAll('[id]');
+    allElementsWithId.forEach(element => {
+        console.log('ID:', element.id, '| Tipo:', element.tagName, '| Classe:', element.className);
+    });
     
-    if (fileUploadDiv && photoInput) {
-        fileUploadDiv.addEventListener('click', function() {
-            console.log('Clicou no upload');
-            photoInput.click();
-        });
-        
-        photoInput.addEventListener('change', function(e) {
-            console.log('Arquivo selecionado:', e.target.files[0]);
-            if (e.target.files.length > 0) {
-                fileUploadDiv.innerHTML = `
-                    <div style="color: #35821A; font-size: 2rem;">✅</div>
-                    <p>Imagem selecionada: ${e.target.files[0].name}</p>
-                `;
-            }
-        });
-    }
+    // Mostrar TODOS os inputs de arquivo
+    console.log('Todos os inputs de arquivo:');
+    const allFileInputs = document.querySelectorAll('input[type="file"]');
+    allFileInputs.forEach(input => {
+        console.log('File input:', input, 'ID:', input.id);
+    });
     
-    // BOTÃO ENVIAR - VERSÃO SIMPLES
+    // Mostrar TODOS os textareas
+    console.log('Todos os textareas:');
+    const allTextareas = document.querySelectorAll('textarea');
+    allTextareas.forEach(ta => {
+        console.log('Textarea:', ta, 'ID:', ta.id);
+    });
+    
+    // Mostrar TODOS os inputs de email
+    console.log('Todos os inputs de email:');
+    const allEmailInputs = document.querySelectorAll('input[type="email"]');
+    allEmailInputs.forEach(input => {
+        console.log('Email input:', input, 'ID:', input.id);
+    });
+    
+    // Botão simples para teste
     const submitBtn = document.querySelector('.btn-secondary');
     if (submitBtn) {
-        submitBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            console.log('=== TENTANDO ENVIAR ===');
-            
-            // Elementos básicos
-            const email = document.getElementById('email')?.value;
-            const photo = document.getElementById('photo')?.files[0];
-            const request = document.getElementById('request')?.value;
-            
-            console.log('Email:', email);
-            console.log('Foto:', photo);
-            console.log('Pedido:', request);
-            
-            // Verificação
-            if (email && photo && request) {
-                alert('✅ FORMULÁRIO FUNCIONANDO!\nFoto: ' + photo.name + '\nEmail: ' + email);
-            } else {
-                let mensagem = '❌ Faltando:\n';
-                if (!email) mensagem += '- Email\n';
-                if (!photo) mensagem += '- Foto\n'; 
-                if (!request) mensagem += '- Descrição\n';
-                alert(mensagem);
-            }
-        });
+        submitBtn.onclick = function() {
+            alert('Botão clicado! Verifique o console (F12) para ver os elementos.');
+        };
     }
 });
         </script>
