@@ -456,17 +456,22 @@
 document.addEventListener('DOMContentLoaded', function() {
     console.log('Scenecraft - JavaScript carregado');
     
-    // FILE UPLOAD
+    // FILE UPLOAD - Usando o name="upload" do Formspree
     var fileUploadDiv = document.getElementById('fileUpload');
-    var photoInput = document.getElementById('photo');
+    // AGORA USA O NAME DO FORMSPREE
+    var photoInput = document.querySelector('input[name="upload"]');
+    
+    console.log('FileUpload Div:', fileUploadDiv);
+    console.log('Photo Input:', photoInput);
     
     if (fileUploadDiv && photoInput) {
         fileUploadDiv.addEventListener('click', function() {
+            console.log('Clicou no upload');
             photoInput.click();
         });
         
         photoInput.addEventListener('change', function(e) {
-            // VERIFICAÇÃO CORRETA se há arquivos
+            console.log('Arquivo selecionado:', e.target.files[0]);
             if (e.target.files && e.target.files.length > 0) {
                 fileUploadDiv.innerHTML = 
                     '<div style="color: #35821A; font-size: 2rem;">✅</div>' +
@@ -477,44 +482,45 @@ document.addEventListener('DOMContentLoaded', function() {
         fileUploadDiv.style.cursor = 'pointer';
     }
     
-    // BOTÃO ENVIAR - VERIFICAÇÃO CORRIGIDA
+    // BOTÃO ENVIAR - VERSÃO SIMPLIFICADA
     var submitBtn = document.querySelector('.btn-secondary');
     if (submitBtn) {
         submitBtn.addEventListener('click', function(e) {
             e.preventDefault();
             console.log('=== TENTANDO ENVIAR ===');
             
-            var emailInput = document.querySelector('input[type="email"]');
-            var photoInput = document.getElementById('photo');
-            var textarea = document.querySelector('textarea');
+            // USANDO OS NAMES CORRETOS DO FORMSPREE
+            var emailInput = document.querySelector('input[name="email"]');
+            var photoInput = document.querySelector('input[name="upload"]');
+            var requestInput = document.querySelector('textarea[name="request"]');
+            
+            console.log('Email input:', emailInput);
+            console.log('Photo input:', photoInput);
+            console.log('Request input:', requestInput);
             
             var email = emailInput ? emailInput.value : '';
+            var photo = null;
+            var request = requestInput ? requestInput.value : '';
             
             // VERIFICAÇÃO CORRETA DO ARQUIVO
-            var photo = null;
             if (photoInput && photoInput.files && photoInput.files.length > 0) {
                 photo = photoInput.files[0];
+                console.log('Foto encontrada:', photo);
             }
-            
-            var request = textarea ? textarea.value : '';
             
             console.log('Email:', email);
             console.log('Foto:', photo);
             console.log('Pedido:', request);
             
-            // VERIFICAÇÃO CORRETA
             if (email && photo !== null && request) {
                 alert('✅ FORMULÁRIO FUNCIONANDO! Foto: ' + photo.name);
-                
-                // AGORA ENVIA PARA FORMSPREE
+                // ENVIA O FORMULÁRIO
                 document.getElementById('scenecraft-form').submit();
-                
             } else {
-                var mensagem = '❌ Faltando: ';
-                if (!email) mensagem += 'Email ';
-                if (photo === null) mensagem += 'Foto ';
-                if (!request) mensagem += 'Descrição';
-                alert(mensagem);
+                alert('❌ Faltando: ' + 
+                      (!email ? 'Email ' : '') + 
+                      (!photo ? 'Foto ' : '') + 
+                      (!request ? 'Descrição' : ''));
             }
         });
     }
