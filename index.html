@@ -515,7 +515,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (email && photo !== null && request) {
                 alert('✅ FORMULÁRIO FUNCIONANDO! Foto: ' + photo.name);
                 // ENVIA O FORMULÁRIO
-                document.getElementById('scenecraft-form').submit();
+                photo.getElementById('scenecraft-form').submit();
             } else {
                 alert('❌ Faltando: ' + 
                       (!email ? 'Email ' : '') + 
