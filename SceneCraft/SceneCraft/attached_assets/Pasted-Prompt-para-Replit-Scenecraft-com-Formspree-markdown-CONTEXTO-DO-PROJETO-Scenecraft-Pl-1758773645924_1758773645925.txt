@@ -1,0 +1,108 @@
+Prompt para Replit - Scenecraft com Formspree
+markdown
+## CONTEXTO DO PROJETO
+**Scenecraft** - Plataforma de edição de imagens com IA. Usuário envia uma foto + descrição, recebe imagem editada profissionalmente.
+
+## OBJETIVO
+Corrigir o formulário para conectar com Formspree e implementar containers de "Antes/Depois" funcionais.
+
+## CÓDIGO ATUAL DO USUÁRIO
+O usuário (Rafael) já tem um site HTML/CSS/JS funcionando em `scenecraft.com.br`, mas com problemas no JavaScript do formulário.
+
+## PROBLEMAS IDENTIFICADOS
+1. **Formulário não envia** para Formspree
+2. **JavaScript não acessa** o arquivo de imagem (retorna `null`)
+3. **Containers "Antes/Depois"** são apenas visuais, não funcionais
+4. **Upload de imagem** tem interação quebrada
+
+## SOLUÇÕES REQUERIDAS
+
+### 1. CONEXÃO FORMSPREE CORRIGIDA
+- **Form action:** `https://formspree.io/f/xnngqoor`
+- **Method:** POST
+- **Enctype:** `multipart/form-data`
+- **Input names corretos:** `email`, `upload` (arquivo), `request`
+
+### 2. CONTAINERS ANTES/DEPOIS FUNCIONAIS
+**Container "Antes":**
+- [ ] Área para upload de imagem
+- [ ] Preview da imagem original
+- [ ] Drag & drop functionality
+
+**Container "Depois":**
+- [ ] Preview da imagem processada (placeholder inicial)
+- [ ] Após envio do formulário, mostrar mensagem "Processando com IA..."
+- [ ] Futuramente: exibir resultado real
+
+### 3. JAVASCRIPT CORRIGIDO
+```javascript
+// Problema atual: photoInput.files[0] retorna null
+// Solução: usar querySelector correto e verificação robusta
+
+// Código atual do usuário que precisa ser corrigido:
+document.querySelector('.btn-secondary').addEventListener('click', function(e) {
+    e.preventDefault();
+    const email = document.getElementById('email')?.value;
+    const photo = document.getElementById('photo')?.files[0]; // ← RETORNA NULL
+    const request = document.getElementById('request')?.value;
+});
+4. MELHORIAS DE UX
+Feedback visual durante upload
+
+Validação em tempo real dos campos
+
+Loading state durante envio
+
+Confirmação de recebimento
+
+ESTRUTURA HTML REQUERIDA
+html
+<!-- FORMSPREE CORRETO -->
+<form action="https://formspree.io/f/xnngqoor" method="POST" enctype="multipart/form-data">
+    <input type="email" name="email" required>
+    <input type="file" name="upload" accept="image/*" required>
+    <textarea name="request" required></textarea>
+    <button type="submit">Enviar para IA</button>
+</form>
+
+<!-- CONTAINERS ANTES/DEPOIS -->
+<div class="comparison-container">
+    <div class="before-container">
+        <h3>Sua Foto Original</h3>
+        <div class="upload-area" id="uploadArea">
+            <!-- Área de upload interativa -->
+        </div>
+    </div>
+    <div class="after-container">
+        <h3>Resultado com IA</h3>
+        <div class="result-placeholder">
+            <!-- Preview do resultado -->
+        </div>
+    </div>
+</div>
+DETALHES TÉCNICOS
+Framework: Vanilla HTML/CSS/JS
+
+Upload: Suporte a múltiplos formatos de imagem
+
+Responsivo: Mobile-friendly
+
+Feedback: Estados de loading, success, error
+
+ENTREGAS ESPERADAS
+Formulário enviando corretamente para Formspree
+
+Upload de imagem funcionando com preview
+
+Containers "Antes/Depois" com interação completa
+
+JavaScript robusto e sem errors no console
+
+Design mantendo as cores #35821A (verde) e #BD8926 (dourado)
+
+URL DE REFERÊNCIA
+Site atual: scenecraft.com.br
+
+Formspree: https://formspree.io/f/xnngqoor
+
+Prioridade: Funcionalidade do formulário > Upload de imagem > Design dos containers
